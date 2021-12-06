@@ -28,7 +28,9 @@ class DataTable {
         }
         this.wrapper = wrapper;
         if (!(this.wrapper instanceof HTMLElement)) {
-            throw new Error('Invalid argument given for `wrapper`');
+            throw new Error(
+                this.translate('Invalid argument given for `wrapper`')
+            );
         }
 
         this.buildOptions(options);
@@ -54,6 +56,12 @@ class DataTable {
             ...DEFAULT_OPTIONS.headerDropdown,
             ...options.headerDropdown
         ];
+
+        this.options.headerDropdown.forEach(header => {
+            header.label = this.translate(header.label);
+        });
+
+        this.options.noDataMessage = this.translate(this.options.noDataMessage);
 
         // custom user events
         this.events = Object.assign(
@@ -241,6 +249,14 @@ class DataTable {
     log() {
         if (this.options.logs) {
             console.log.apply(console, arguments);
+        }
+    }
+
+    translate(text) {
+        if (this.options.translationMethod) {
+            return this.options.translationMethod(text);
+        } else {
+            return text;
         }
     }
 }

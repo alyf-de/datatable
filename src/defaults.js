@@ -67,5 +67,6 @@ export default {
     pasteFromClipboard: false,
     showTotalRow: false,
     direction: 'ltr',
-    disableReorderColumn: false
+    disableReorderColumn: false,
+    translationMethod: null,
 };
